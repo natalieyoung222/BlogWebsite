@@ -1,0 +1,15 @@
+---
+title: "Natalie Young"
+image: profile.jpeg
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/natalie-duarte-2aba41219/
+    - icon: github
+      text: Github
+      href: https://github.com/natalieyoung222
+---
+
+Digital marketer specializing in the strategic integration of psychology and design principles for advertising campaigns on meta platforms.

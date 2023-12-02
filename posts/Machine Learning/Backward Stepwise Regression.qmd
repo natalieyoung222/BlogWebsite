@@ -1,0 +1,63 @@
+---
+title: "Linear Regression Using Stock Data"
+author: "Natalie Young"
+date: "2023-11-28"
+categories: [R]
+---
+
+
+
+
+```{r}
+# Load the necessary libraries
+library(MASS)
+library(caret)
+
+stocks_df <- read.csv("30_yr_stock_market_data2.csv")
+
+
+# View the first few rows of the dataset
+head(stocks_df)
+# Summary statistics of the dataset
+summary(stocks_df)
+
+# List of variables to be removed
+variables_to_remove <- c("Date", "Cocoa..CC.F.", "Coffee..KC.F.", "Corn..ZC.F.", 
+                          "Cotton..CT.F.", "Live.Cattle..LE.F.", 
+                          "Orange.Juice..OJ.F.", "Soybeans..ZS.F.", 
+                          "Sugar..SB.F.", "Wheat..ZW.F.", "Ethanol..EH.F.", 
+                          "Heating.Oil..HO.F.", "Natural.Gas..NG.F.", 
+                          "Crude.Oil.Brent..BZ.F.", "Crude.Oil.WTI..CL.F.", 
+                          "Copper..HG.F.", "Gold..GC.F.", "Palladium..PA.F.", 
+                          "Platinum..PL.F.", "Silver..SI.F.")
+
+# Remove specified variables from the dataset
+stocks_df_no_vars <- stocks_df[, setdiff(colnames(stocks_df), variables_to_remove)]
+
+
+
+
+
+# Convert all variables in the dataset to numeric
+stocks_df_numeric <- as.data.frame(lapply(stocks_df_no_vars, as.numeric))
+
+# Check the structure of the new dataset
+str(stocks_df_numeric)
+
+
+# Set the seed for reproducibility
+set.seed(123)
+
+# Create a random index for splitting the data (80% for training, 20% for testing)
+index <- sample(seq_len(nrow(stocks_df)), size = 0.8 * nrow(stocks_df))
+
+# Split the data into training and testing sets
+train_data <- stocks_df[index, ]
+test_data <- stocks_df[-index, ]
+
+# Fit a linear regression model using the training data
+linear_model <- lm(`NYSE.Composite` ~ ., data = train_data)
+
+
+
+```
